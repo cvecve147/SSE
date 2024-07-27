@@ -8,7 +8,8 @@ This project demonstrates how to implement Server-Sent Events (SSE) using FastAP
 
 Here is a video demonstrating the SSE Example:
 
-![](SSE Example.mp4)
+https://github.com/user-attachments/assets/f2f1d255-e6eb-42b8-af3b-92794965b4e2
+
 
 ## Features
 
