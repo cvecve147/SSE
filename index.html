@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SSE Example</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background: #f0f0f0;
+        }
+        .container {
+            background: #fff;
+            padding: 20px 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        h1 {
+            color: #333;
+        }
+        #messages {
+            margin-top: 20px;
+            font-size: 1.2em;
+            color: #555;
+        }
+        .completed {
+            color: green;
+        }
+        .error {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Server-Sent Events Example</h1>
+        <div id="messages">Waiting for messages...</div>
+    </div>
+
+    <script>
+        const eventSource = new EventSource("http://127.0.0.1:8000/sse");
+
+        eventSource.onmessage = function(event) {
+            const messagesDiv = document.getElementById("messages");
+            const newMessage = document.createElement("div");
+            newMessage.textContent = event.data;
+            messagesDiv.appendChild(newMessage);
+        };
+
+        eventSource.addEventListener("complete", function(event) {
+            const messagesDiv = document.getElementById("messages");
+            const completedMessage = document.createElement("div");
+            completedMessage.textContent = event.data;
+            completedMessage.classList.add("completed");
+            messagesDiv.appendChild(completedMessage);
+            eventSource.close();
+        });
+
+        eventSource.onerror = function(event) {
+            const messagesDiv = document.getElementById("messages");
+            const errorMessage = document.createElement("div");
+            if (event.eventPhase === EventSource.CLOSED) {
+                errorMessage.textContent = "Connection was closed.";
+                errorMessage.classList.add("error");
+                console.log("Connection was closed.");
+            } else {
+                errorMessage.textContent = "Error occurred: " + event.message;
+                errorMessage.classList.add("error");
+                console.error("Error occurred:", event);
+            }
+            messagesDiv.appendChild(errorMessage);
+            eventSource.close();
+        };
+    </script>
+</body>
+</html>
