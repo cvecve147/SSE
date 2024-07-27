@@ -8,10 +8,7 @@ This project demonstrates how to implement Server-Sent Events (SSE) using FastAP
 
 Here is a video demonstrating the SSE Example:
 
-<video width="640" controls>
-  <source src="SSE Example - [InPrivate] - Microsoft_ Edge 2024-07-27 22-05-36 (online-video-cutter.com).mp4" type="video/mp4">
-  Your browser does not support the video tag.
-</video>
+![](SSE Example.mp4)
 
 ## Features
 
